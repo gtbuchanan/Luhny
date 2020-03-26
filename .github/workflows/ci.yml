@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.101'
+
+      - name: Run FAKE
+        run: ./build
+        shell: powershell
+
+      - name: Archive Binaries
+        uses: actions/upload-artifact@v1
+        with:
+          name: Binaries
+          path: artifacts/Binaries
+        if: always()
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v1
+        with:
+          name: TestResults
+          path: artifacts/TestResults
+        if: always()
+
+      - name: Archive Test Coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: TestCoverageReport
+          path: artifacts/TestCoverageReport
+
+      - name: Archive Packages
+        uses: actions/upload-artifact@v1
+        with:
+          name: Packages
+          path: artifacts/Packages

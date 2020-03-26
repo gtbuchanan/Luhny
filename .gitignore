@@ -1,0 +1,21 @@
+# Fake
+.fake/
+artifacts/
+
+# KDiff3
+*.orig
+
+# macOS
+*DS_Store
+
+# Visual Studio
+.vs/
+[Oo]bj/
+[Bb]in/
+*.user
+*.suo
+*.userprefs
+*.sln.ide
+
+# VS Code
+.ionide/
