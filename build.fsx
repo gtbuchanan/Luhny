@@ -12,7 +12,7 @@ open Fake.IO.Globbing.Operators
 open Fake.DotNet
 open Fake.Testing
 
-let isLocal = Environment.environVarAsBoolOrDefault "GITHUB_ACTIONS" true
+let isLocal = not <| Environment.environVarAsBool "GITHUB_ACTIONS"
 
 let artifactDir = "./artifacts"
 let binaryDir = artifactDir </> "Binaries"
