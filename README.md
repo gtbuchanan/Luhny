@@ -1,5 +1,7 @@
 # Luhny
 
+![CI](https://github.com/gtbuchanan/Luhny/workflows/CI/badge.svg)
+
 A .NET Library to create and verify values using the Luhn algorithm. F# and C# friendly.
 
 ## Usage
