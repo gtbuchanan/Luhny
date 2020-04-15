@@ -39,6 +39,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".dependabot", ".dependabot", "{27A46889-AC69-4F91-8A03-7905CC3E12B4}"
+	ProjectSection(SolutionItems) = preProject
+		.dependabot\config.yml = .dependabot\config.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +67,7 @@ Global
 		{13763728-7DFE-4D78-A932-8F848497B294} = {7F8725C3-3A39-42C6-AE08-974F6D439B4A}
 		{0F685E4F-FD16-43C7-A523-11C8CCCDD1F3} = {FC3B5E91-634B-4E16-8A13-9AEE595230EC}
 		{BA216A8B-D91B-429B-B85F-E7805731C260} = {0F685E4F-FD16-43C7-A523-11C8CCCDD1F3}
+		{27A46889-AC69-4F91-8A03-7905CC3E12B4} = {FC3B5E91-634B-4E16-8A13-9AEE595230EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF712D11-B116-47D5-A785-A458E511C995}
