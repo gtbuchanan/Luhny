@@ -48,7 +48,7 @@ module LuhnInt64Length =
   val value : n:LuhnInt64Length -> int
 
 /// <summary>
-///   A simple checksum formula used to verify a variety of identification numbers, 
+///   A simple checksum formula used to verify a variety of identification numbers,
 ///   such as credit card numbers, IMEI numbers, National Provider Identifier numbers
 ///   in the United States, Canadian Social Insurance Numbers, Israel ID Numbers and
 ///   Greek Social Security Numbers (ΑΜΚΑ).
@@ -67,7 +67,7 @@ module Luhn =
   ///   Non-numeric characters will be replaced.
   /// </param>
   /// <returns>A numeric string of the specified length verifiable by the Luhn algorithm.</returns>
-  val create : (LuhnLength -> string option -> string)
+  val create : length:LuhnLength -> prefix:string option -> string
 
   /// <summary>
   ///   Generates an <see cref="Int64" /> of the specified length verifiable by the Luhn algorithm.
@@ -77,7 +77,7 @@ module Luhn =
   ///   The prefix for the number. If longer than the length, it will be truncated. Signs are ignored.
   /// </param>
   /// <returns>A numeric string of the specified length verifiable by the Luhn algorithm.</returns>
-  val createInt64 : (LuhnInt64Length -> int64 option -> int64)
+  val createInt64 : length:LuhnInt64Length -> prefix:int64 option -> int64
 
   /// <summary>
   ///   Verifies a number against a checksum generated with the Luhn algorithm.
@@ -91,12 +91,12 @@ module Luhn =
   /// </summary>
   /// <param name="number">Number to validate.</param>
   /// <returns><c>true</c> if valid, otherwise <c>false</c>.</returns>
-  val verifyInt64 : (int64 -> bool)
+  val verifyInt64 : number:int64 -> bool
 
 namespace Luhny
 
 /// <summary>
-///   A simple checksum formula used to verify a variety of identification numbers, 
+///   A simple checksum formula used to verify a variety of identification numbers,
 ///   such as credit card numbers, IMEI numbers, National Provider Identifier numbers
 ///   in the United States, Canadian Social Insurance Numbers, Israel ID Numbers and
 ///   Greek Social Security Numbers (ΑΜΚΑ).
@@ -111,7 +111,7 @@ type Luhn =
   /// </summary>
   /// <param name="length">The length of the number to generate.</param>
   /// <returns>A numeric string of the specified length verifiable by the Luhn algorithm.</returns>
-  /// <exception cref="ArgumentOutOfRangeException"><paramref cref="length" /> is less than 2.</exception>
+  /// <exception cref="ArgumentOutOfRangeException"><paramref name="length" /> is less than 2.</exception>
   static member Create : length:int -> string
 
   /// <summary>
@@ -123,8 +123,8 @@ type Luhn =
   ///   Non-numeric characters will be replaced.
   /// </param>
   /// <returns>A numeric string of the specified length verifiable by the Luhn algorithm.</returns>
-  /// <exception cref="ArgumentNullException"><paramref cref="prefix" /> is <c>null</c>.</exception>
-  /// <exception cref="ArgumentOutOfRangeException"><paramref cref="length" /> is less than 2.</exception>
+  /// <exception cref="ArgumentNullException"><paramref name="prefix" /> is <c>null</c>.</exception>
+  /// <exception cref="ArgumentOutOfRangeException"><paramref name="length" /> is less than 2.</exception>
   static member Create : length:int * prefix:string -> string
 
   /// <summary>
@@ -132,7 +132,7 @@ type Luhn =
   /// </summary>
   /// <param name="length">The length of the number to generate.</param>
   /// <returns>A numeric string of the specified length verifiable by the Luhn algorithm.</returns>
-  /// <exception cref="ArgumentOutOfRangeException"><paramref cref="length" /> is less than 2 or greater than 18.</exception>
+  /// <exception cref="ArgumentOutOfRangeException"><paramref name="length" /> is less than 2 or greater than 18.</exception>
   static member CreateInt64 : length:int -> int64
 
   /// <summary>
@@ -143,7 +143,7 @@ type Luhn =
   ///   The prefix for the number. If longer than the length, it will be truncated. Signs are ignored.
   /// </param>
   /// <returns>A numeric string of the specified length verifiable by the Luhn algorithm.</returns>
-  /// <exception cref="ArgumentOutOfRangeException"><paramref cref="length" /> is less than 2 or greater than 18.</exception>
+  /// <exception cref="ArgumentOutOfRangeException"><paramref name="length" /> is less than 2 or greater than 18.</exception>
   static member CreateInt64 : length:int * prefix:int64 -> int64
 
   /// <summary>
@@ -151,7 +151,7 @@ type Luhn =
   /// </summary>
   /// <param name="number">Numeric string to validate.</param>
   /// <returns><c>true</c> if valid, otherwise <c>false</c>.</returns>
-  /// <exception cref="ArgumentNullException"><paramref cref="number" /> is less than 2 or greater than 18.</exception>
+  /// <exception cref="ArgumentNullException"><paramref name="number" /> is less than 2 or greater than 18.</exception>
   static member Verify : number:string -> bool
 
   /// <summary>
