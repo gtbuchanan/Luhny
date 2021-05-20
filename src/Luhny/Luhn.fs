@@ -35,7 +35,7 @@ module Luhn =
 
   let private reduceCheckDigit n = (10 - n % 10) % 10
 
-  let private createInternal length (prefix: string option) =
+  let private create' length (prefix: string option) =
     let trimPrefix (s: string) =
       if isNull s || s.Length = 0 then None
       elif s.Length >= length then s.Substring(0, length - 1) |> Some
@@ -58,9 +58,9 @@ module Luhn =
     Seq.foldi foldDigits (StringBuilder(), 0) { length - 1..-1..1 }
     |> appendCheckDigit
 
-  let create = LuhnLength.value >> createInternal
+  let create length prefix = create' (LuhnLength.value length) prefix
 
-  let private createInt64Internal length =
+  let private createInt64' length =
     let pow10 = (+) 1 >> pown 10L // +1 to skip check digit
     let normalizePrefix n =
       let digits = Int64.countDigits n
@@ -89,9 +89,9 @@ module Luhn =
     >> zip checksum (+)
     >> (<||) (|>)
 
-  let createInt64 = LuhnInt64Length.value >> createInt64Internal
+  let createInt64 length prefix = createInt64' (LuhnInt64Length.value length) prefix
 
-  let private verifyInternal =
+  let private verify' =
     let generator (ri, i, s: string) =
       let result = ri, s.Chars i |> Char.decimalDigitValue, ri = s.Length - 1
       let state = ri + 1, i - 1, s
@@ -107,13 +107,15 @@ module Luhn =
     >> Seq.fold folder (false, 0)
     >> (fun (complete, n) -> complete && n % 10 = 0)
 
-  let verify s = not <| isNull s && String.length s > 1 && verifyInternal s
+  let verify number = not <| isNull number && String.length number > 1 && verify' number
 
-  let verifyInt64 =
+  let private verifyInt64' =
     Int64.unfoldDigits
     >> Seq.indexed
     >> Seq.sumBy ((<||) checksumDigit)
     >> (fun n -> n <> 0 && n % 10 = 0)
+
+  let verifyInt64 number = verifyInt64' number
 
 namespace Luhny
 
