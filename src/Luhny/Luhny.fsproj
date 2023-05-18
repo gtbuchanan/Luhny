@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Description>Create and verify values using the Luhn algorithm. F# and C# friendly.</Description>
     <PackageTags>luhn algorithm mod10 modulus checksum credit card sim imei bank f# fsharp</PackageTags>
   </PropertyGroup>
@@ -11,10 +11,6 @@
     <Compile Include="Internals.fs" />
     <Compile Include="Luhn.fsi" />
     <Compile Include="Luhn.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.300" />
   </ItemGroup>
 
 </Project>

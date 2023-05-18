@@ -1,15 +1,9 @@
-#r "paket:
-nuget Fake.Core.Target
-nuget Fake.DotNet.Cli
-nuget Fake.IO.FileSystem
-nuget Fake.Testing.ReportGenerator //"
-#load "./.fake/build.fsx/intellisense.fsx"
-
 open Fake.Core
+open Fake.Core.TargetOperators
+open Fake.DotNet
 open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
-open Fake.DotNet
 open Fake.Testing
 
 let isLocal = not <| Environment.environVarAsBool "GITHUB_ACTIONS"
@@ -25,8 +19,7 @@ let launchDefaultProgram filePath =
   |> Proc.run
   |> ignore
 
-Target.create "Clean" <| fun _ ->
-  Shell.cleanDir artifactDir
+let clean _ = Shell.cleanDir artifactDir
 
 let configureBuildOptions (o: DotNet.BuildOptions) =
   { o with
@@ -35,24 +28,27 @@ let configureBuildOptions (o: DotNet.BuildOptions) =
         o.MSBuildParams with
           Verbosity = Some Quiet;
           Properties = o.MSBuildParams.Properties @ [
+            "BaseOutputPath", Path.getFullName binaryDir + Path.directorySeparator
             "PackageOutputPath", Path.getFullName packageDir
           ];
-          Targets = "rebuild;pack"::o.MSBuildParams.Targets };
-      OutputPath = Some binaryDir; }
+          Targets = "rebuild;pack"::o.MSBuildParams.Targets } }
 
-Target.create "Build" <| fun _ ->
-  DotNet.build configureBuildOptions "."
+let build _ = DotNet.build configureBuildOptions "."
 
 let configureTestOptions (o: DotNet.TestOptions) =
   { o with
       Collect = Some "XPlat Code Coverage";
       Configuration = DotNet.Release;
-      MSBuildParams = { o.MSBuildParams with Verbosity = Some Quiet };
+      MSBuildParams = {
+        o.MSBuildParams with
+          Verbosity = Some Quiet;
+          Properties = o.MSBuildParams.Properties @ [
+            "BaseOutputPath", Path.getFullName binaryDir + Path.directorySeparator
+          ] };
       NoBuild = true;
-      Output = Some binaryDir;
       ResultsDirectory = Some testResultDir; }
 
-Target.create "Test" <| fun _ ->
+let test _ =
   DotNet.test configureTestOptions "."
   !! (sprintf "%s/**/coverage.cobertura.xml" testResultDir)
   |> Shell.copyFiles testResultDir
@@ -61,26 +57,44 @@ Target.create "Test" <| fun _ ->
 
 let configureReportOptions (p: ReportGenerator.ReportGeneratorParams) =
   { p with
+      ReportTypes = [
+        ReportGenerator.ReportType.Cobertura;
+        ReportGenerator.ReportType.HtmlInline_AzurePipelines_Dark];
       TargetDir = testCoverageReportDir;
       ToolType = ToolType.CreateLocalTool() }
 
-Target.create "GenerateCoverageReport" <| fun _ ->
+let generateCoverageReport _ =
   !! (sprintf "%s/*.xml" testResultDir)
   |> Seq.toList
   |> ReportGenerator.generateReports configureReportOptions
 
-Target.create "LaunchCoverageReport" <| fun _ ->
-  testCoverageReportDir </> "index.htm" |> launchDefaultProgram
+let launchCoverageReport _ = testCoverageReportDir </> "index.htm" |> launchDefaultProgram
 
-Target.create "Default" ignore
+let initTargets () =
+  Target.create "Clean" clean
+  Target.create "Build" build
+  Target.create "Test" test
+  Target.create "GenerateCoverageReport" generateCoverageReport
+  Target.create "LaunchCoverageReport" launchCoverageReport
+  Target.create "Default" ignore
 
-open Fake.Core.TargetOperators
+  "Clean"
+    ==> "Build"
+    ==> "Test"
+    ==> "GenerateCoverageReport"
+    =?> ("LaunchCoverageReport", isLocal && Environment.isWindows)
+    ==> "Default"
+    |> ignore
 
-"Clean"
-  ==> "Build"
-  ==> "Test"
-  ==> "GenerateCoverageReport"
-  =?> ("LaunchCoverageReport", isLocal && Environment.isWindows)
-  ==> "Default"
+let private setExecutionContext =
+  Array.toList
+  >> Context.FakeExecutionContext.Create false "build.fsx"
+  >> Context.RuntimeContext.Fake
+  >> Context.setExecutionContext
 
-Target.runOrDefault "Default"
+[<EntryPoint>]
+let main argv =
+  setExecutionContext argv
+  initTargets ()
+  Target.runOrDefault "Default"
+  0

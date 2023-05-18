@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Luhny", "src\Luhny\Luhny.fsproj", "{FC099957-5BA3-43C0-977F-8E37B9D12D62}"
 EndProject
@@ -23,9 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		build.fsx = build.fsx
+		build.cmd = build.cmd
 		build.ps1 = build.ps1
+		build.sh = build.sh
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
@@ -44,6 +46,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".dependabot", ".dependabot"
 		.dependabot\config.yml = .dependabot\config.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B9965035-EAAA-4898-AB17-63B433CCA88E}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Build", "build\Build.fsproj", "{B3D54EDE-2610-4A66-9E1B-763F6E41EF79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +64,10 @@ Global
 		{13763728-7DFE-4D78-A932-8F848497B294}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13763728-7DFE-4D78-A932-8F848497B294}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13763728-7DFE-4D78-A932-8F848497B294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3D54EDE-2610-4A66-9E1B-763F6E41EF79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D54EDE-2610-4A66-9E1B-763F6E41EF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D54EDE-2610-4A66-9E1B-763F6E41EF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D54EDE-2610-4A66-9E1B-763F6E41EF79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +78,7 @@ Global
 		{0F685E4F-FD16-43C7-A523-11C8CCCDD1F3} = {FC3B5E91-634B-4E16-8A13-9AEE595230EC}
 		{BA216A8B-D91B-429B-B85F-E7805731C260} = {0F685E4F-FD16-43C7-A523-11C8CCCDD1F3}
 		{27A46889-AC69-4F91-8A03-7905CC3E12B4} = {FC3B5E91-634B-4E16-8A13-9AEE595230EC}
+		{B3D54EDE-2610-4A66-9E1B-763F6E41EF79} = {B9965035-EAAA-4898-AB17-63B433CCA88E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF712D11-B116-47D5-A785-A458E511C995}

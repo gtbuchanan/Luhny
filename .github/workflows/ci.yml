@@ -19,18 +19,11 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '7.0.x'
 
-      - name: Run FAKE
+      - name: Build
         run: ./build
         shell: powershell
-
-      - name: Archive Binaries
-        uses: actions/upload-artifact@v1
-        with:
-          name: Binaries
-          path: artifacts/Binaries
-        if: always()
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v1
