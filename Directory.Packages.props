@@ -1,25 +1,24 @@
 <Project>
   <PropertyGroup>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <!-- BUG: This should really be disabled but NuGet fails with a non-descript error -->
-    <CentralPackageVersionOverrideEnabled>true</CentralPackageVersionOverrideEnabled>
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
     <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="Fake.Core.Target" Version="6.0.0" />
     <PackageVersion Include="Fake.DotNet.Cli" Version="6.0.0" />
     <PackageVersion Include="Fake.IO.FileSystem" Version="6.0.0" />
     <PackageVersion Include="Fake.Testing.ReportGenerator" Version="6.0.0" />
     <PackageVersion Include="FsCheck.Xunit" Version="2.16.6" />
     <PackageVersion Include="FSharp.Core" Version="8.0.200" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-    <PackageVersion Include="MSBuild.StructuredLogger" Version="2.2.206" />
-    <PackageVersion Include="Nerdbank.GitVersioning" Version="3.6.133" />
-    <PackageVersion Include="Unquote" Version="6.1.0" />
-    <PackageVersion Include="xunit" Version="2.6.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4" />
+    <PackageVersion Include="MSBuild.StructuredLogger" Version="2.2.243" />
+    <PackageVersion Include="Nerdbank.GitVersioning" Version="3.6.139" />
+    <PackageVersion Include="Unquote" Version="7.0.0" />
+    <PackageVersion Include="xunit" Version="2.9.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 </Project>
