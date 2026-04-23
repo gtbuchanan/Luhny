@@ -6,7 +6,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+    <PackageVersion Include="coverlet.collector" Version="10.0.0" />
     <PackageVersion Include="Fake.Core.Target" Version="6.0.0" />
     <PackageVersion Include="Fake.DotNet.Cli" Version="6.0.0" />
     <PackageVersion Include="Fake.IO.FileSystem" Version="6.0.0" />
